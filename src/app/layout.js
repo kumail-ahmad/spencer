@@ -1,24 +1,26 @@
-
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Kdam_Thmor_Pro } from "next/font/google";
 import "./globals.css";
+// import "./bones/registry"; 
+import Providers from "@/components/Providers";
+import Crosshair from "@/components/ui/Crosshair";
 
 const geistSans = Geist({
+  subsets: ["latin"],
   variable: "--font-geist-sans",
-  subsets: ["latin"],
 });
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const kdamThmor = Kdam_Thmor_Pro({
   subsets: ["latin"],
+  weight: "400", // Kdam Thmor Pro is a single-weight font
+  display: "swap",
+});
+const geistMono = Geist_Mono({
+  subsets: ["latin"],
+  variable: "--font-geist-mono",
 });
 
 export const metadata = {
-  title: "Spencer",
-  description: "Its magic",
-  openGraph:{
-    url:"https://abc.com",
-    
-  }
+  title: "Spencer | Portfolio | K$",
+  description: "Portfolio | Kumail Ahmad ",
 };
 
 export default function RootLayout({ children }) {
@@ -27,7 +29,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

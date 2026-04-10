@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Spencer 
 
-## Getting Started
+This repository contains my personal portfolio website, developed to present my work, technical skills, and approach to creative web development.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Overview
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The portfolio focuses on building an interactive and visually refined web experience. It emphasizes smooth animations, modern UI patterns, and a balance between design and engineering.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+The project is intentionally designed as a frontend-focused implementation, prioritizing user experience, motion, and performance.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+- Next.js (JavaScript) — Application framework  
+- Tailwind CSS — Styling and layout  
+- GSAP — Animation and transitions  
+- Lenis — Smooth scrolling implementation  
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## UI and Component Approach
 
-## Deploy on Vercel
+The interface is built using a combination of reusable components and modern UI systems:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- shadcn/ui — Component primitives and design structure  
+- 21st.dev — Interactive UI elements and patterns  
+- Custom-built components for layout, motion, and interaction  
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Key Features
+
+- Smooth scroll-driven interactions  
+- Structured and reusable component architecture  
+- Responsive layout across devices  
+- Focus on performance and clean rendering  
+- Integration of motion to enhance user experience  
+
+---
+
+## Design and Development Approach
+
+This project reflects an approach that combines:
+
+- Technical implementation with creative design  
+- Emphasis on interaction and motion  
+- Clean, minimal, and structured UI systems  
+
+The goal is to build experiences that are not only functional but also visually engaging.
+
+---
+
+## Note
+
+This repository represents a personal portfolio project. The code and design are intended for demonstration purposes only and are not meant for reuse or redistribution.
+
+---
+© 2025 Kumail Ahmad. Built and designed by the author.

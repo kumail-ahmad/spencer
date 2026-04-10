@@ -48,8 +48,8 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --background: oklch(100% 0.00011 271.152);
+  --foreground: oklch(0% 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -119,7 +119,35 @@
   * {
     @apply border-border outline-ring/50;
   }
-  body {
-    @apply bg-background text-foreground;
+  html, body {
+    @apply text-foreground;
+    background-color: #d4cfc9; /* match hero to avoid white flash between sections */
+    overflow: hidden; /* Lenis handles scrolling */
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  #smooth-wrapper {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  #smooth-wrapper::-webkit-scrollbar {
+    display: none;
+  }
+  #smooth-content {
+    will-change: transform;
+    background-color: #d4cfc9; /* fallback so gaps never show white */
+  }
+  /* remove gaps between sections that would show body/wrapper */
+  #smooth-content > * {
+    margin: 0;
+  }
+  /* GSAP pin-spacer: match about-trigger gradient so extra pin space never looks like a gap */
+  .pin-spacer {
+    background: linear-gradient(to bottom, #6b6762 0%, #8a8580 25%, #a8a39d 55%, #d4cfc9 100%);
+  }
+  .pin-spacer:has(.projects-section) {
+    background: #0a0a0a;
   }
 }
+
