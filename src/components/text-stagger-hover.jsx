@@ -1,5 +1,4 @@
-
-'use client';;
+"use client";
 import * as React from 'react';
 
 import { cn } from "@/lib/utils";
@@ -179,6 +178,63 @@ export const TextStaggerHoverHidden = ({
             {char}
             {char === ' ' && index < characters.length - 1 && <>&nbsp;</>}
           </motion.span>
+        );
+      })}
+    </span>
+  );
+};
+
+/** Same stagger motion as nav hover, runs once on mount (no hover). */
+export const TextStaggerReveal = ({
+  text,
+  animation = 'top',
+  staggerDirection = 'middle',
+  className,
+  lineDelay = 0.12,
+  delayOffset = 0,
+  duration = 0.35,
+  staggerValue = 0.02,
+}) => {
+  const animationVariants = useAnimationVariants(animation);
+  const lines = String(text).split('\n');
+
+  return (
+    <span className={cn('inline-block', className)}>
+      {lines.map((line, lineIndex) => {
+        const trimmed = line.trim();
+        if (!trimmed) return null;
+        const { characters, characterCount } = splitText(trimmed);
+        return (
+          <span key={lineIndex} className="block text-nowrap">
+            {characters.map((char, index) => {
+              const staggerDelay =
+                delayOffset +
+                lineIndex * lineDelay +
+                setStaggerDirection({
+                  direction: staggerDirection,
+                  staggerValue,
+                  totalItems: characterCount,
+                  index,
+                });
+              return (
+                <motion.span
+                  className="inline-block"
+                  key={`${lineIndex}-${index}-${char}`}
+                  variants={animationVariants}
+                  initial="hidden"
+                  animate="visible"
+                  transition={{
+                    delay: staggerDelay,
+                    ease: [0.25, 0.46, 0.45, 0.94],
+                    duration,
+                  }}
+                >
+                  {char}
+                  {char === ' ' && index < characters.length - 1 ? <>&nbsp;</> : null}
+                </motion.span>
+              );
+            })}
+          </span>
         );
       })}
     </span>

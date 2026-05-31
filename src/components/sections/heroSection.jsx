@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -12,22 +12,16 @@ import {
   Linkedin,
 } from "lucide-react";
 import Image from "next/image";
-import { BlurText } from "../ui/blur-text";
-
-import { Kdam_Thmor_Pro, Roboto, Bebas_Neue } from "next/font/google";
+import { Kdam_Thmor_Pro, Bebas_Neue } from "next/font/google";
 
 import {
   TextStaggerHover,
   TextStaggerHoverActive,
   TextStaggerHoverHidden,
+  TextStaggerReveal,
 } from "../text-stagger-hover";
 
 import { useLenis } from "../lenis";
-
-const roboto = Roboto({
-  subsets: ["latin"],
-  weight: ["700"],
-});
 
 const kdam = Kdam_Thmor_Pro({
   weight: ["400"],
@@ -44,8 +38,7 @@ gsap.registerPlugin(ScrollTrigger);
 export default function HeroSection() {
   const textRef = useRef(null);
   const heroRef = useRef(null);
-  const contRef = useRef(null);
-  const imgRef = useRef(null);
+  const bgRef = useRef(null);
   const lenis = useLenis();
 
   const navItems = [
@@ -85,7 +78,7 @@ export default function HeroSection() {
       "a",
     );
     tl.to(
-      imgRef.current,
+      bgRef.current,
       {
         scale: 1.3,
       },
@@ -96,34 +89,88 @@ export default function HeroSection() {
     });
   });
 
+  const outlineText =
+    "text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.9)] [text-shadow:0_0_24px_rgba(0,0,0,0.25)] md:[-webkit-text-stroke:2px_rgba(255,255,255,0.9)]";
+
+  const blockImageAction = (e) => {
+    e.preventDefault();
+  };
+
+  const imageGuardClass =
+    "pointer-events-none select-none [-webkit-user-drag:none] [touch-callout:none]";
+
   return (
     <section
       ref={heroRef}
-      className="relative w-full h-screen overflow-hidden z-30 bg-[#f0ece2]"
+      className="relative w-full h-[100svh] min-h-screen overflow-hidden z-30 bg-[#5aabdf]"
     >
-      <div className="absolute flex w-full h-screen justify-center items-end bottom-0  ">
-        <Image
-          className="object-cover ml-16 z-100 -translate-y-8 md:translate-y-0 scale-y-[1.2] md:scale-y-[1]"
-          src="/bg2.png"
-          width={600}
-          height={400}
-          alt="bg"
-          ref={imgRef}
+      <div
+        className="absolute inset-0 z-0 overflow-hidden select-none"
+        onContextMenu={blockImageAction}
+        onCopy={blockImageAction}
+        onCut={blockImageAction}
+        onDragStart={blockImageAction}
+      >
+        {/* blurred fill — hides any edge bleed on mobile */}
+        <div className="absolute inset-0 z-0 md:hidden" aria-hidden>
+          <Image
+            src="/shimM.PNG"
+            alt=""
+            fill
+            priority
+            draggable={false}
+            sizes="100vw"
+            onContextMenu={blockImageAction}
+            onDragStart={blockImageAction}
+            className={`object-cover object-[52%_20%] scale-110 blur-xl ${imageGuardClass}`}
+          />
+        </div>
+
+        <div
+          ref={bgRef}
+          className="absolute -inset-[7%] md:inset-0 z-[1] origin-center will-change-transform"
+        >
+          <Image
+            src="/shimM.PNG"
+            alt="Kumail Ahmad"
+            fill
+            priority
+            draggable={false}
+            sizes="100vw"
+            onContextMenu={blockImageAction}
+            onDragStart={blockImageAction}
+            className={`object-cover object-[52%_38%] md:object-[51%_42%] ${imageGuardClass}`}
+          />
+        </div>
+
+        {/* blocks direct interaction with the photo layer */}
+        <div
+          className="absolute inset-0 z-[2]"
+          aria-hidden
+          onContextMenu={blockImageAction}
+          onDragStart={blockImageAction}
         />
-        <div className="absolute left-4 right-4 top-4 z-30">
+      </div>
+
+      <div className="absolute flex w-full h-screen justify-center items-end bottom-0 pointer-events-none">
+        <div className="absolute left-4 right-4 top-4 z-30 pointer-events-auto">
           <div className="flex items-center justify-between md:hidden">
-            <h1 className={`text-xl font-bold ${kdam.className}`}>K$</h1>
+            <h1
+              className={`text-xl font-bold text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.45)] ${kdam.className}`}
+            >
+              K$
+            </h1>
           </div>
 
           <div className="flex flex-col md:grid md:grid-cols-3 items-center mt-4 md:mt-0">
             <h1
-              className={`hidden md:block text-2xl font-bold justify-self-start ${kdam.className}`}
+              className={`hidden md:block text-2xl font-bold justify-self-start text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.45)] ${kdam.className}`}
             >
               K$
             </h1>
 
             <div
-              className={`flex flex-wrap justify-center text-sm md:text-lg gap-4 md:gap-12 font-bold justify-self-center ${kdam.className} text-black md:text-[#ff0000]`}
+              className={`flex flex-wrap justify-center text-sm md:text-lg gap-4 md:gap-12 font-bold justify-self-center text-white ${kdam.className}`}
             >
               {navItems.map((item) => (
                 <TextStaggerHover
@@ -153,60 +200,69 @@ export default function HeroSection() {
             {/* ICONS */}
             <div className="flex gap-5 mt-3 md:mt-0 justify-self-end lg:hidden">
               <a href="https://instagram.com/mainly.kumail" target="_blank">
-                <Instagram className="hover:text-gray-500" size={22} />
+                <Instagram
+                  className="text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.45)] hover:text-white/80"
+                  size={22}
+                />
               </a>
 
               <a
                 href="https://linkedin.com/in/kumail-ahmad-a3035b15b"
                 target="_blank"
               >
-                <Linkedin className="hover:text-gray-500" size={22} />
+                <Linkedin
+                  className="text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.45)] hover:text-white/80"
+                  size={22}
+                />
               </a>
 
               <a href="https://github.com/kumail-ahmad" target="_blank">
-                <Github className="hover:text-gray-500" size={22} />
+                <Github
+                  className="text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.45)] hover:text-white/80"
+                  size={22}
+                />
               </a>
             </div>
           </div>
         </div>
-        <div
-          ref={contRef}
-          className="introducLeft absolute w-full flex items-center justify-center bottom-[10px] uppercase z-10"
-        >
-          <div ref={textRef} className="w-full flex justify-center">
-            <h1
+
+        <div className="absolute inset-x-0 top-[57%] z-10 flex -translate-y-1/2 items-center justify-between px-3 sm:px-4 md:px-10 lg:px-16 pointer-events-none">
+          <div ref={textRef} className="flex w-full max-w-[min(100%,1400px)] mx-auto items-center justify-between uppercase">
+            <h2
               className={`
                 ${bebas.className}
-                hero-name
-                uppercase font-black
-                leading-[0.7] md:leading-none
-                tracking-[-0.03em]
-                text-[180px] md:text-[300px]
-                text-center md:text-left
-                text-[#ff0000]
-                origin-top
-                -translate-y-[260%] md:-translate-y-[70%]
-                scale-y-[2.9] md:scale-y-[2.1]
-                [-webkit-text-stroke:1px_currentColor] md:[-webkit-text-stroke:6px_currentColor]
+                origin-left text-left font-black leading-[0.85] tracking-[-0.02em]
+                text-[clamp(2.25rem,7.5vw,5.5rem)] md:text-[clamp(3rem,6vw,6rem)]
+                lg:translate-x-8 xl:translate-x-12
+                ${outlineText}
               `}
             >
-              <span className="block md:inline mb-2 md:mb-0">KUMAIL</span>
-              <span className="hidden md:inline md:ml-4">AHMAD</span>
-            </h1>
+              <TextStaggerReveal
+                text={"KUMAIL\nAhmad"}
+                animation="top"
+                staggerDirection="middle"
+              />
+            </h2>
+            <h2
+              className={`
+                ${bebas.className}
+                origin-right text-right font-black leading-[0.85] tracking-[0.08em] md:tracking-[0.12em]
+                text-[clamp(1.5rem,4.8vw,3.25rem)] md:text-[clamp(2rem,3.5vw,3.75rem)]
+                lg:-translate-x-8 xl:-translate-x-12
+                ${outlineText}
+              `}
+            >
+              <TextStaggerReveal
+                text={"DEVELOPER\nDESIGNER"}
+                animation="top"
+                staggerDirection="middle"
+                delayOffset={0.28}
+              />
+            </h2>
           </div>
         </div>
-        <div className="introDucRight absolute right-42  -translate-y-1/2 top-1/2 uppercase  ">
-          <BlurText
-            text={`designer \n developer`}
-            multiline
-            repeat={10000}
-            repeatDelay={5}
-            leading="leading-tight"
-            tracking="tracking-[0.35em]"
-          />
-        </div>
 
-        <div className="resume absolute top-4 right-4 md:top-3 md:right-12 flex items-center gap-2 tracking-wider">
+        <div className="resume absolute top-4 right-4 md:top-3 md:right-12 z-30 flex items-center gap-2 tracking-wider pointer-events-auto">
           <TextStaggerHover
             as="a"
             href="/resume.pdf"
