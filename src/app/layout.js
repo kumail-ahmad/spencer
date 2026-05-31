@@ -3,6 +3,7 @@ import "./globals.css";
 // import "./bones/registry"; 
 import Providers from "@/components/Providers";
 import Crosshair from "@/components/ui/Crosshair";
+import { Analytics } from '@vercel/analytics/next';
 
 const geistSans = Geist({
   subsets: ["latin"],
@@ -30,6 +31,7 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>{children}</Providers>
+        <Analytics />
       </body>
     </html>
   );
