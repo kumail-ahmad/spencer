@@ -16,6 +16,27 @@ export default function ExperienceSection() {
   const lineRef = useRef(null);
   const dotRef = useRef(null);
 
+  const timelineData = [
+    {
+      title: "Burn Hall School",
+      subtitle: "Higher Secondary Education",
+      year: "2023",
+      description: "Completed my schooling with a strong academic foundation, developing early interest in technology and problem-solving.",
+    },
+    {
+      title: "Codevera Technologies",
+      subtitle: "Full-Stack Web Developer",
+      year: "2024",
+      description: "Built web features, product prototypes, and reusable components/microservices, implemented UI improvements and 3D UI interface compatible with Modern Web Standards.",
+    },
+    {
+      title: "IUST",
+      subtitle: "Btech - Computer Science Engineering",
+      year: "NOW",
+      description: "Currently pursuing my degree while strengthening my skills in full-stack development, system design, and modern web technologies such as TypeScript, React, Node.js, and 3D web interfaces.",
+    },
+  ];
+
   useGSAP(() => {
     const line = lineRef.current;
     const dot = dotRef.current;
@@ -47,7 +68,7 @@ export default function ExperienceSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-[#0a0a0a] text-white px-10 py-20 md:py-28"
+      className="relative bg-[#0a0a0a] text-white px-4 md:px-10 py-20 md:py-28"
     >
       <h1
         className={` ${bebas.className} w-full text-white text-7xl md:text-7xl lg:ml-36 md:ml-3 ml-5 mb-20 font-black leading-[.9] tracking-wide uppercase text-left `}
@@ -56,82 +77,69 @@ export default function ExperienceSection() {
         <span className="text-[#a855f7]">Career</span>
       </h1>
 
-      <div className="relative max-w-6xl mx-auto grid grid-cols-[1fr_auto_1fr] gap-4 md:gap-12 lg:gap-20 timeline-container pb-10">
-        <div className="flex flex-col space-y-16 md:space-y-24 py-2">
-          <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between pr-4 md:pr-10">
-            <div>
-              <h2 className="text-xl md:text-2xl font-bold">
-                Burn Hall School
-              </h2>
-              <p className="text-purple-400 font-medium mt-1">
-                Higher Secondary Education
-              </p>
+      <div className="relative max-w-6xl mx-auto timeline-container pb-10 px-0 md:px-0">
+        {/* Background line */}
+        <div className="absolute left-[24px] md:left-1/2 -translate-x-1/2 top-0 w-[2px] h-full bg-white/10" />
+
+        {/* Animated line */}
+        <div
+          ref={lineRef}
+          className="absolute left-[24px] md:left-1/2 -translate-x-1/2 top-0 w-[2px] h-full bg-gradient-to-b from-transparent via-purple-500/70 to-purple-300 shadow-[0_0_10px_rgba(168,85,247,0.5)] origin-top scale-y-0"
+        />
+
+        {/* Dot */}
+        <div
+          ref={dotRef}
+          className="absolute left-[24px] md:left-1/2 -translate-x-1/2 top-0 w-4 h-4 bg-purple-300 rounded-full shadow-[0_0_30px_#a855f7]"
+        />
+
+        <div className="space-y-16 md:space-y-24 relative z-10">
+          {timelineData.map((item, index) => (
+            <div
+              key={index}
+              className="grid grid-cols-[48px_1fr] md:grid-cols-[1fr_96px_1fr] gap-4 md:gap-12 lg:gap-20 items-start"
+            >
+              <div className="hidden md:flex flex-col lg:flex-row lg:items-start lg:justify-between text-right pr-2">
+                <div className="flex-1">
+                  <h2 className="text-xl md:text-2xl font-bold">
+                    {item.title}
+                  </h2>
+                  <p className="text-purple-400 font-medium mt-1 text-sm md:text-base">
+                    {item.subtitle}
+                  </p>
+                </div>
+                <p className="text-3xl md:text-4xl font-bold ml-6 mt-2 lg:mt-0 whitespace-nowrap">
+                  {item.year}
+                </p>
+              </div>
+
+              <div className="w-12 md:w-24 flex justify-center items-start pt-1.5">
+                <div className="w-3 h-3 md:w-4 md:w-4 rounded-full bg-purple-500 border-2 border-black z-20" />
+              </div>
+
+              <div className="flex flex-col space-y-3 pl-2 md:pl-0">
+                <div className="md:hidden flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1">
+                  <div>
+                    <h2 className="text-xl font-bold text-white">
+                      {item.title}
+                    </h2>
+                    <p className="text-purple-400 font-medium text-sm">
+                      {item.subtitle}
+                    </p>
+                  </div>
+                  <p className="text-2xl font-bold text-white self-start sm:self-auto">
+                    {item.year}
+                  </p>
+                </div>
+
+                <div className="max-w-md">
+                  <p className="text-sm leading-relaxed text-white/80">
+                    {item.description}
+                  </p>
+                </div>
+              </div>
             </div>
-            <p className="text-3xl md:text-4xl font-bold mt-2 lg:mt-0">2023</p>
-          </div>
-
-          <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between pr-4 md:pr-10">
-            <div>
-              <h2 className="text-xl md:text-2xl font-bold">
-                 Codevera Technologies
-              </h2>
-              <p className="text-purple-400 font-medium mt-1">
-                Full-Stack Web Developer
-              </p>
-            </div>
-            <p className="text-3xl md:text-4xl font-bold mt-2 lg:mt-0">2024</p>
-          </div>
-
-          <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between pr-4 md:pr-10">
-            <div>
-              <h2 className="text-xl md:text-2xl font-bold">IUST</h2>
-              <p className="text-purple-400 font-medium mt-1">
-                Btech - Computer Science Engineering
-              </p>
-            </div>
-            <p className="text-3xl md:text-4xl font-bold text-gray-400 mt-2 lg:mt-0">
-              NOW
-            </p>
-          </div>
-        </div>
-
-        <div className="relative flex justify-center w-full">
-          {/* Background line */}
-          <div className="absolute top-0 w-[2px] h-full bg-white/10" />
-
-          {/* Animated line */}
-          <div
-            ref={lineRef}
-            className="absolute top-0 w-[2px] h-full bg-gradient-to-b from-transparent via-purple-500/70 to-purple-300 shadow-[0_0_10px_rgba(168,85,247,0.5)] origin-top scale-y-0"
-          />
-
-          {/* Dot */}
-          <div
-            ref={dotRef}
-            className="absolute top-0 w-4 h-4 bg-purple-300 rounded-full shadow-[0_0_30px_#a855f7] -translate-x-[0.5px]"
-          />
-        </div>
-
-        <div className="flex flex-col space-y-16 md:space-y-24 text-white/80 pl-4 md:pl-10 py-2">
-          <div className="max-w-md">
-            <p className="text-sm leading-relaxed">
-             Completed my schooling with a strong academic foundation, developing early interest in technology and problem-solving.
-            </p>
-          </div>
-
-          <div className="max-w-md">
-            <p className="text-sm leading-relaxed">
-              Built web features, product prototypes, and reusable
-              components/microservices, implemented UI improvements and 3D UI
-              interface compatible with Modern Web Standards.
-            </p>
-          </div>
-
-          <div className="max-w-md">
-            <p className="text-sm leading-relaxed">
-            Currently pursuing my degree while strengthening my skills in full-stack development, system design, and modern web technologies such as TypeScript, React, Node.js, and 3D web interfaces.
-            </p>
-          </div>
+          ))}
         </div>
       </div>
     </section>

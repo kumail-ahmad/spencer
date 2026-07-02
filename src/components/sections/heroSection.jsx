@@ -89,8 +89,8 @@ export default function HeroSection() {
     });
   });
 
-  const outlineText =
-    "text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.9)] [text-shadow:0_0_24px_rgba(0,0,0,0.25)] md:[-webkit-text-stroke:2px_rgba(255,255,255,0.9)]";
+  const headerTextStyle =
+    "text-white [text-shadow:0_0_24px_rgba(0,0,0,0.35)]";
 
   const blockImageAction = (e) => {
     e.preventDefault();
@@ -114,15 +114,15 @@ export default function HeroSection() {
         {/* blurred fill — hides any edge bleed on mobile */}
         <div className="absolute inset-0 z-0 md:hidden" aria-hidden>
           <Image
-            src="/shimM.PNG"
+            src="/shimM_portrait.jpg"
             alt=""
             fill
             priority
+            unoptimized
             draggable={false}
-            sizes="100vw"
             onContextMenu={blockImageAction}
             onDragStart={blockImageAction}
-            className={`object-cover object-[52%_20%] scale-110 blur-xl ${imageGuardClass}`}
+            className={`object-cover scale-110 blur-xl ${imageGuardClass}`}
           />
         </div>
 
@@ -130,6 +130,17 @@ export default function HeroSection() {
           ref={bgRef}
           className="absolute -inset-[7%] md:inset-0 z-[1] origin-center will-change-transform"
         >
+          <Image
+            src="/shimM_portrait.jpg"
+            alt="Kumail Ahmad"
+            fill
+            priority
+            unoptimized
+            draggable={false}
+            onContextMenu={blockImageAction}
+            onDragStart={blockImageAction}
+            className={`object-cover md:hidden ${imageGuardClass}`}
+          />
           <Image
             src="/shimM.PNG"
             alt="Kumail Ahmad"
@@ -139,7 +150,7 @@ export default function HeroSection() {
             sizes="100vw"
             onContextMenu={blockImageAction}
             onDragStart={blockImageAction}
-            className={`object-cover object-[52%_38%] md:object-[51%_42%] ${imageGuardClass}`}
+            className={`object-cover object-[52%_38%] md:object-[51%_42%] hidden md:block ${imageGuardClass}`}
           />
         </div>
 
@@ -226,19 +237,19 @@ export default function HeroSection() {
           </div>
         </div>
 
-        <div className="absolute inset-x-0 top-[57%] z-10 flex -translate-y-1/2 items-center justify-between px-3 sm:px-4 md:px-10 lg:px-16 pointer-events-none">
-          <div ref={textRef} className="flex w-full max-w-[min(100%,1400px)] mx-auto items-center justify-between uppercase">
+        <div className="absolute inset-x-0 top-[62%] z-10 flex -translate-y-1/2 lg:mt-[100px] items-center justify-between px-3 sm:px-4 md:px-10 lg:px-16 pointer-events-none">
+          <div ref={textRef} className="flex w-full max-w-[min(100%,1000px)] mx-auto items-center justify-between uppercase">
             <h2
               className={`
                 ${bebas.className}
-                origin-left text-left font-black leading-[0.85] tracking-[-0.02em]
-                text-[clamp(2.25rem,7.5vw,5.5rem)] md:text-[clamp(3rem,6vw,6rem)]
+                origin-left text-left font-black leading-[0.85] tracking-[0.08em] md:tracking-[0.12em]
+                text-[clamp(1.5rem,4.8vw,3.25rem)] md:text-[clamp(2rem,3.5vw,3.75rem)]
                 lg:translate-x-8 xl:translate-x-12
-                ${outlineText}
+                ${headerTextStyle}
               `}
             >
               <TextStaggerReveal
-                text={"KUMAIL\nAhmad"}
+                text={"KUMAIL\nAHMAD"}
                 animation="top"
                 staggerDirection="middle"
               />
@@ -249,7 +260,7 @@ export default function HeroSection() {
                 origin-right text-right font-black leading-[0.85] tracking-[0.08em] md:tracking-[0.12em]
                 text-[clamp(1.5rem,4.8vw,3.25rem)] md:text-[clamp(2rem,3.5vw,3.75rem)]
                 lg:-translate-x-8 xl:-translate-x-12
-                ${outlineText}
+                ${headerTextStyle}
               `}
             >
               <TextStaggerReveal
