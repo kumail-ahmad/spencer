@@ -1,6 +1,25 @@
 "use client";
-import { useEffect,useState, useRef, useCallback, useMemo } from "react";
+import { useEffect, useRef, useCallback, useMemo, useSyncExternalStore } from "react";
 import { gsap } from "gsap";
+
+const subscribe = (callback) => {
+  window.addEventListener("resize", callback);
+  return () => window.removeEventListener("resize", callback);
+};
+
+const getSnapshot = () => {
+  if (typeof window === "undefined") return false;
+  const hasTouchScreen =
+    "ontouchstart" in window || navigator.maxTouchPoints > 0;
+  const isSmallScreen = window.innerWidth <= 768;
+  const userAgent = navigator.userAgent || navigator.vendor || window.opera || "";
+  const mobileRegex =
+    /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i;
+  const isMobileUserAgent = mobileRegex.test(userAgent.toLowerCase());
+  return (hasTouchScreen && isSmallScreen) || isMobileUserAgent;
+};
+
+const getServerSnapshot = () => false;
 
 const TargetCursor = ({
   targetSelector = ".cursor-target",
@@ -18,25 +37,7 @@ const TargetCursor = ({
   const targetCornerPositionsRef = useRef(null);
   const tickerFnRef = useRef(null);
   const activeStrengthRef = useRef(0);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    const hasTouchScreen =
-      "ontouchstart" in window || navigator.maxTouchPoints > 0;
-
-    const isSmallScreen = window.innerWidth <= 768;
-
-    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-
-    const mobileRegex =
-      /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i;
-
-    const isMobileUserAgent = mobileRegex.test(userAgent.toLowerCase());
-
-    setIsMobile((hasTouchScreen && isSmallScreen) || isMobileUserAgent);
-  }, []);
+  const isMobile = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const constants = useMemo(
     () => ({
       borderWidth: 3,

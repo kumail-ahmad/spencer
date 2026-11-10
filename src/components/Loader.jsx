@@ -6,7 +6,8 @@ const Loader = ({ onComplete }) => {
   const [progress, setProgress] = useState(0);
   const lenis = useLenis();
   const lenisRef = useRef(lenis);
-  
+  const onCompleteRef = useRef(onComplete);
+
   const loaderRef = useRef(null);
   const marqueeRef1 = useRef(null);
   const marqueeRef2 = useRef(null);
@@ -14,7 +15,10 @@ const Loader = ({ onComplete }) => {
   const glowRef = useRef(null);
   const loadingContentRef = useRef(null);
   const welcomeContentRef = useRef(null);
-  const countRef = { val: 0 };
+
+  useEffect(() => {
+    onCompleteRef.current = onComplete;
+  }, [onComplete]);
 
   useEffect(() => {
     lenisRef.current = lenis;
@@ -24,13 +28,15 @@ const Loader = ({ onComplete }) => {
   }, [lenis]);
 
   useEffect(() => {
+    const countObj = { val: 0 };
+
     // Progress counter animation
-    gsap.to(countRef, {
+    gsap.to(countObj, {
       val: 100,
       duration: 3,
       ease: "power1.inOut",
       onUpdate: () => {
-        setProgress(Math.floor(countRef.val));
+        setProgress(Math.floor(countObj.val));
       },
       onComplete: () => {
         // Swap LOADING to WELCOME
@@ -39,8 +45,8 @@ const Loader = ({ onComplete }) => {
           duration: 0.3,
           onComplete: () => {
              // Hide loading div completely so welcome is centered
-             if(loadingContentRef.current) loadingContentRef.current.style.display = 'none';
-             if(welcomeContentRef.current) {
+             if (loadingContentRef.current) loadingContentRef.current.style.display = 'none';
+             if (welcomeContentRef.current) {
                welcomeContentRef.current.style.display = 'flex';
                gsap.to(welcomeContentRef.current, { opacity: 1, duration: 0.4 });
              }
@@ -61,7 +67,7 @@ const Loader = ({ onComplete }) => {
               duration: 0.6,
               onComplete: () => {
                 if (lenisRef.current) lenisRef.current.start();
-                if (onComplete) onComplete();
+                if (onCompleteRef.current) onCompleteRef.current();
               }
             });
           }
